@@ -25,16 +25,16 @@ public class PedidoSpecs {
 
     public static Specification<Pedido> usuarioOrResponsavelEmailIsLike(String usuarioEmail) {
         return (root, query, cb) -> {
-            var usuarioJoin = root.join("usuario", JoinType.LEFT);
+            var usuarioJoin = root.join("cliente", JoinType.LEFT);
             var responsavelJoin = root.join("responsavel", JoinType.LEFT);
             return cb.or(
                     cb.like(
                             cb.upper(usuarioJoin.get("email")),
-                            "%" + usuarioEmail.toUpperCase() + "%"
+                            "%" + usuarioEmail.toUpperCase().trim() + "%"
                     ),
                     cb.like(
                             cb.upper(responsavelJoin.get("email")),
-                            "%" + usuarioEmail.toUpperCase() + "%"
+                            "%" + usuarioEmail.toUpperCase().trim() + "%"
                     )
             );
         };

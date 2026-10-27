@@ -27,7 +27,7 @@ public class ProdutoSpecs {
     public static Specification<Produto> nomeLike(String nome){
         return (root, query, cb) -> cb.like(
                 cb.upper(root.get("nome")),
-                "%"+nome.toUpperCase()+"%"
+                "%"+nome.toUpperCase().trim()+"%"
         );
     }
 }

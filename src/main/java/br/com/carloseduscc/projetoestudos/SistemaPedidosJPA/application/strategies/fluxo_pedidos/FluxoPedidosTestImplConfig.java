@@ -25,7 +25,7 @@ import java.util.UUID;
 
 @Configuration
 @AllArgsConstructor
-@Profile("test")
+@Profile({"test", "homologation", "production"})
 public class FluxoPedidosTestImplConfig {
 
     private final PedidoRepository pedidoRepository;

@@ -43,7 +43,7 @@ public class UsuarioValidator {
         if (usuario.getAtivo() == false) {
             throw new RegraDeNegocioException("Usuário já foi desativado");
         }
-        if (pedidoRepository.existsByUsuarioAndStatusIn(usuario, List.of(StatusPedido.PAGO, StatusPedido.ENVIADO, StatusPedido.PENDENTE))) {
+        if (pedidoRepository.existsByClienteAndStatusIn(usuario, List.of(StatusPedido.PAGO, StatusPedido.ENVIADO, StatusPedido.PENDENTE))) {
             throw new RegraDeNegocioException("Não é permitido desativar um usuário que contém pedidos enviados, pagos ou pendentes, deve-se primeiro ter todos os pedidos finalizados como entregues ou cancelados");
         }
     }

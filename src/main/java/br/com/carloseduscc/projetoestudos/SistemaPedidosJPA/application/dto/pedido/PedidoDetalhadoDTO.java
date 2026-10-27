@@ -1,6 +1,7 @@
 package br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.dto.pedido;
 
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.dto.atualizacaoStatus.AtualizacaoStatusDTO;
+import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.dto.item.ItemDetalhadoDTO;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.dto.item.ItemResumoDTO;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.dto.usuario.UsuarioDTO;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.model.StatusPedido;
@@ -26,8 +27,8 @@ public record PedidoDetalhadoDTO(
         BigDecimal valorTotal,
         UsuarioDTO responsavel,
         @Schema(description = "Itens pertencentes ao pedido")
-        Set<ItemResumoDTO> itens
-
-
+        Set<ItemDetalhadoDTO> itens,
+        @Schema(description = "Nome do cliente")
+        UsuarioDTO cliente
 ) {
 }

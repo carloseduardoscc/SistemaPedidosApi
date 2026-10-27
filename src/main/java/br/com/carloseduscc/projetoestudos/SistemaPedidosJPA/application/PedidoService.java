@@ -48,6 +48,7 @@ public class PedidoService {
         return pedidoMapper.toDTODetalhado(pedido);
     }
 
+    @Transactional
     public Page<PedidoDTO> pesquisarListagem(Pageable pageable, RequisicaoFiltroPedido parametros) {
         Page<Pedido> page = pedidoRepository.findAll(parametros.toSpecification(), pageable);
         return page.map(pedidoMapper::toDTO);

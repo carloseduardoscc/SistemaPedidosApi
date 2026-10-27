@@ -16,6 +16,7 @@ public interface PedidoMapper {
     @Mapping(target = "valorTotal", expression = "java( pedido.getTotal() )")
     PedidoDetalhadoDTO toDTODetalhado(Pedido pedido);
 
+    @Mapping(target = "nomeCliente", expression = "java( pedido.getCliente().getNome() )")
     PedidoDTO toDTO(Pedido pedido);
 
     // TO RESPONSES

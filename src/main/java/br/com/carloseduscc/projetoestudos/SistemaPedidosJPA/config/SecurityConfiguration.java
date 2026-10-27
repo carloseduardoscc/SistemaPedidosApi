@@ -47,7 +47,7 @@ public class SecurityConfiguration {
 
     private final GlobalExceptionHandler globalExceptionHandler;
     private final ObjectMapper objectMapper;
-    @Value("${spring.security.allowed-origins[0]}")
+    @Value("${spring.security.allowed-origins}")
     private List<String> allowedOrigins;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
@@ -72,6 +72,7 @@ public class SecurityConfiguration {
                 }))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers(HttpMethod.GET, "/actuator/health").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/auth/logout").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/auth/cadastrar").permitAll();

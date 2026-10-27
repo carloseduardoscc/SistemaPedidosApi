@@ -17,6 +17,12 @@ public interface ItemPedidoMapper {
     @Mapping(target = "nomeProduto", expression = "java( itemPedido.getProduto().getNome() )")
     ItemResumoDTO toResumoDTO(ItemPedido itemPedido);
 
+    @Mapping(target = "itemId", source = "id")
+    @Mapping(target = "pedidoId", expression = "java( itemPedido.getPedido().getId() )")
+    @Mapping(target = "nomeProduto", expression = "java( itemPedido.getProduto().getNome() )")
+    @Mapping(target = "precoUnitario", expression = "java( itemPedido.getProduto().getPrecoUnitario() )")
+    ItemDetalhadoDTO toDetalhadoDTO(ItemPedido itemPedido);
+
     ItemDetalhadoDTO fromProjectionToDTO(ItemPedidoDetalhadoProjection projection);
 
     @Mapping(source="id", target = "idItem")

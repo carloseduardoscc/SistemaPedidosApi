@@ -11,14 +11,14 @@ public class UsuarioSpecs {
     public static Specification<Usuario> nomeLike(String nome){
         return (root, query, cb) -> cb.like(
                 cb.upper(root.get("nome")),
-                "%"+nome.toUpperCase()+"%"
+                "%"+nome.toUpperCase().trim()+"%"
         );
     }
 
     public static Specification<Usuario> emailLike(String email){
         return (root, query, cb) -> cb.like(
                 cb.upper(root.get("email")),
-                "%"+email.toUpperCase()+"%"
+                "%"+email.toUpperCase().trim()+"%"
         );
     }
 }

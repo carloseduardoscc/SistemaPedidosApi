@@ -16,11 +16,11 @@ spring:
     open-in-view: false
 # Security
   security:
+    secure-cookies: false
     refresh-token:
       expiration-time: 604800000 # 7 dias
     jwt:
       expiration-time: 3600000 # 1 hora
-    allowed-origins: []
     oauth2:
       client:
         registration:
@@ -71,7 +71,8 @@ spring:
       path: /h2-console
   # Security
   security:
-    allowed-origins: ['http://localhost:*']
+    allowed-origins: ${ALLOWED_ORIGINS:"*"}
+    secure-cookies: false
     jwt:
       secret-key: ${JWT_SECRET_KEY:"chavetesteP3T09XjY7v0uUfMub4vC/16bYYsfY4XLqkquEk6w2vI="}
 # Logging
@@ -109,12 +110,13 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto:
+      ddl-auto: create-only
     properties:
       hibernate:
         format_sql: true
 # Security
   security:
+    secure-cookies: false
     allowed-origins: ${ALLOWED_ORIGINS}
     jwt:
       secret-key: ${JWT_SECRET_KEY:"chavetesteP3T09XjY7v0uUfMub4vC/16bYYsfY4XLqkquEk6w2vI="}
@@ -151,6 +153,7 @@ spring:
       ddl-auto: validate
 # Security
   security:
+    secure-cookies: true
     allowed-origins: ${ALLOWED_ORIGINS}
     jwt:
       secret-key: ${JWT_SECRET_KEY}

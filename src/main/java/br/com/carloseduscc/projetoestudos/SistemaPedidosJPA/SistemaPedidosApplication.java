@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
 @SpringBootApplication
-public class SistemaPedidosJpaApplication {
+public class SistemaPedidosApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SistemaPedidosJpaApplication.class, args);
+		SpringApplication.run(SistemaPedidosApplication.class, args);
 	}
 
 }

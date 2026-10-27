@@ -27,12 +27,12 @@ public class Autorizador {
 
     public boolean isUsuarioDonoItem(UUID itemId, UUID usuarioId) {
         Optional<ItemPedido> itemOpt = itemPedidoRepository.findById(itemId);
-        return itemOpt.map(itemPedido -> itemPedido.getPedido().getUsuario().getId().equals(usuarioId)).orElse(false);
+        return itemOpt.map(itemPedido -> itemPedido.getPedido().getCliente().getId().equals(usuarioId)).orElse(false);
     }
 
     public boolean isUsuarioDonoPedido(UUID pedidoId, UUID usuarioId) {
         Optional<Pedido> pedidoOpt = pedidoRepository.findById(pedidoId);
-        return pedidoOpt.map(pedido -> pedido.getUsuario().getId().equals(usuarioId)).orElse(false);
+        return pedidoOpt.map(pedido -> pedido.getCliente().getId().equals(usuarioId)).orElse(false);
     }
 
     public boolean podeAbrirNovoPedido(Authentication authentication, UUID usuarioAfetadoId) {

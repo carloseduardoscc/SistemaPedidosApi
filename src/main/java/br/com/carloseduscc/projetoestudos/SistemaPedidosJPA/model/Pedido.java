@@ -32,8 +32,8 @@ public class Pedido {
         this.status = StatusPedido.PENDENTE;
     }
 
-    public Pedido(Usuario usuario) {
-        this.usuario = usuario;
+    public Pedido(Usuario cliente) {
+        this.cliente = cliente;
     }
 
     @Id
@@ -56,7 +56,7 @@ public class Pedido {
     private Set<ItemPedido> itens;
 
     @ManyToOne
-    private Usuario usuario;
+    private Usuario cliente;
 
     @ManyToOne
     private Usuario responsavel;

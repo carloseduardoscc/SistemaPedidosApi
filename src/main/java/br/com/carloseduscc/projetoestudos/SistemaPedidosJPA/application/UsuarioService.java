@@ -77,7 +77,7 @@ public class UsuarioService {
 
     public AbrirPedidoResponseDTO abrirNovoPedido(UUID id) {
         Usuario usuario = repository.findById(id).orElseThrow(() -> getUsuarioNaoEncontradoException(id));
-        if (pedidoRepository.existsByUsuarioAndStatus(usuario, StatusPedido.PENDENTE)) throw new RegraDeNegocioException("Usuário já tem um pedido pendente");
+        if (pedidoRepository.existsByClienteAndStatus(usuario, StatusPedido.PENDENTE)) throw new RegraDeNegocioException("Usuário já tem um pedido pendente");
 
         Pedido pedido = new Pedido(usuario);
         Pedido pedidoSalvo = pedidoRepository.save(pedido);

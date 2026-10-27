@@ -35,13 +35,13 @@ public interface GenericController {
                 .orElseThrow(RefreshTokenInvalidoException::new);
     }
 
-    default void setRefreshTokenCookie(HttpServletResponse response, String refreshToken, long refreshTokenExpirationTime){
+    default void setRefreshTokenCookie(HttpServletResponse response, String refreshToken, long refreshTokenExpirationTime, boolean isSecureCookiesActive){
         long refreshTokenExpirationTimeInSeconds = refreshTokenExpirationTime / 1000;
         ResponseCookie refreshCookie = ResponseCookie
                 .from("refresh_token", refreshToken)
                 .httpOnly(true)
-                .secure(false)
-                .sameSite("Lax")
+                .secure(isSecureCookiesActive)
+                .sameSite(isSecureCookiesActive ? "none" : "Lax")
                 .path("/")
                 .maxAge(refreshTokenExpirationTimeInSeconds)
                 .build();
@@ -51,13 +51,13 @@ public interface GenericController {
         );
     }
 
-    default void setAccessTokenCookie(HttpServletResponse response, String accessToken, long accessTokenExpirationTime) {
+    default void setAccessTokenCookie(HttpServletResponse response, String accessToken, long accessTokenExpirationTime, boolean isSecureCookiesActive) {
         long accessTokenExpirationTimeInSeconds = accessTokenExpirationTime / 1000;
         ResponseCookie accessCookie = ResponseCookie
                 .from("access_token", accessToken)
                 .httpOnly(true)
-                .secure(false)
-                .sameSite("Lax")
+                .secure(isSecureCookiesActive)
+                .sameSite(isSecureCookiesActive ? "none" : "Lax")
                 .path("/")
                 .maxAge(accessTokenExpirationTimeInSeconds)
                 .build();
@@ -67,7 +67,7 @@ public interface GenericController {
         );
     }
 
-    default void invalidateAccessTokenCookie(HttpServletResponse response) {
+    default void invalidateAccessTokenCookie(HttpServletResponse response, boolean isSecureCookiesActive) {
         response.addHeader(
                 HttpHeaders.SET_COOKIE,
                 ResponseCookie
@@ -81,7 +81,7 @@ public interface GenericController {
         );
     }
 
-    default void invalidateRefreshTokenCookie(HttpServletResponse response) {
+    default void invalidateRefreshTokenCookie(HttpServletResponse response, boolean isSecureCookiesActive) {
         response.addHeader(
                 HttpHeaders.SET_COOKIE,
                 ResponseCookie

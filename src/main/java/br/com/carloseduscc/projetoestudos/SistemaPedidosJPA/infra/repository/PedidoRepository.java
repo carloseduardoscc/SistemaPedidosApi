@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public interface PedidoRepository extends JpaRepository<Pedido, UUID>, JpaSpecificationExecutor<Pedido> {
 
-    List<Pedido> findByUsuario(Usuario usuario);
+    List<Pedido> findByCliente(Usuario usuario);
 
     List<Pedido> findByStatus(StatusPedido status);
 
@@ -48,9 +48,9 @@ public interface PedidoRepository extends JpaRepository<Pedido, UUID>, JpaSpecif
 """)
     void atualizarStatus(@Param("id") UUID id, @Param("status") StatusPedido status);
 
-    boolean existsByUsuarioAndStatusIn(Usuario usuario, List<StatusPedido> status);
+    boolean existsByClienteAndStatusIn(Usuario usuario, List<StatusPedido> status);
 
-    boolean existsByUsuarioAndStatus(Usuario usuario, StatusPedido status);
+    boolean existsByClienteAndStatus(Usuario usuario, StatusPedido status);
 
     @Query("""
     SELECT p
@@ -63,7 +63,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, UUID>, JpaSpecif
     @Query("""
     SELECT DISTINCT p
     FROM Pedido p
-    JOIN FETCH p.usuario
+    JOIN FETCH p.cliente
     JOIN FETCH p.atualizacoesDeStatus
     WHERE p.id = :id
 """)

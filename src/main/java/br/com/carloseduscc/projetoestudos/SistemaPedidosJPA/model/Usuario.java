@@ -46,7 +46,7 @@ public class Usuario {
     private Role role;
 
     // Relação
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "cliente")
     List<Pedido> pedidos;
 
     // Estado

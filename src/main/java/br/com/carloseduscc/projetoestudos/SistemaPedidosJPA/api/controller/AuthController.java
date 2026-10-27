@@ -36,6 +36,8 @@ public class AuthController implements GenericController {
     private long refreshTokenExpirationTime;
     @Value("${spring.security.jwt.expiration-time}")
     private long accessTokenExpirationTime;
+    @Value("${spring.security.secure-cookies}")
+    private boolean isSecureCookiesActive;
 
     @PostMapping("login")
     @Operation(
@@ -51,8 +53,8 @@ public class AuthController implements GenericController {
     ) {
         log.debug("Realizando login para usuário: {}", credentials.username());
         var tokens = service.autenticar(credentials);
-        setAccessTokenCookie(response, tokens.accessToken(), accessTokenExpirationTime);
-        setRefreshTokenCookie(response, tokens.refreshToken(), refreshTokenExpirationTime);
+        setAccessTokenCookie(response, tokens.accessToken(), accessTokenExpirationTime, isSecureCookiesActive);
+        setRefreshTokenCookie(response, tokens.refreshToken(), refreshTokenExpirationTime, isSecureCookiesActive);
         return ResponseEntity.noContent().build();
     }
 
@@ -73,8 +75,8 @@ public class AuthController implements GenericController {
         String coveredTokenForLog = "..." + refreshToken.substring(refreshToken.length() - 3);
         log.debug("Rotacionando refresh token: {}", coveredTokenForLog);
         var tokens = service.rotacionar(refreshToken);
-        setAccessTokenCookie(response, tokens.accessToken(), accessTokenExpirationTime);
-        setRefreshTokenCookie(response, tokens.refreshToken(), refreshTokenExpirationTime);
+        setAccessTokenCookie(response, tokens.accessToken(), accessTokenExpirationTime, isSecureCookiesActive);
+        setRefreshTokenCookie(response, tokens.refreshToken(), refreshTokenExpirationTime, isSecureCookiesActive);
         return ResponseEntity.noContent().build();
     }
 
@@ -96,8 +98,8 @@ public class AuthController implements GenericController {
             log.debug("Revogando refresh token: {}", coveredTokenForLog);
             service.revogarRefreshToken(refreshToken);
         }
-        invalidateAccessTokenCookie(response);
-        invalidateRefreshTokenCookie(response);
+        invalidateAccessTokenCookie(response, isSecureCookiesActive);
+        invalidateRefreshTokenCookie(response, isSecureCookiesActive);
         return ResponseEntity.noContent().build();
     }
 

@@ -65,7 +65,7 @@ VALUES ('11111111-1111-1111-1111-111111111111',
 
 INSERT
 INTO order_management.pedido_tb
-(id, data_cadastro, data_atualizacao, data_hora_pedido, status, version, usuario_id, criado_por, responsavel_id)
+(id, data_cadastro, data_atualizacao, data_hora_pedido, status, version, cliente_id, criado_por, responsavel_id)
 VALUES ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
         CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,
         DATEADD('DAY', -5, CURRENT_TIMESTAMP),
