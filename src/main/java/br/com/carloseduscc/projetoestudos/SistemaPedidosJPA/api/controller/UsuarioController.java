@@ -117,7 +117,7 @@ public class UsuarioController implements GenericController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("{usuarioId}")
+    @PatchMapping("{usuarioId}/desativar")
     @PreAuthorize("#usuarioId == authentication.principal.id")
     @Operation(
             summary = "Desativar usuário", description = "Desativação de conta realizada pelo usuário"
