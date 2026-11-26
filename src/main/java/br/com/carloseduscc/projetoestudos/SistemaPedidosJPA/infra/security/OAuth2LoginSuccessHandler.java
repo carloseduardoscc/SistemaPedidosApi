@@ -1,5 +1,6 @@
 package br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.infra.security;
 
+import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.api.controller.common.HttpHandler;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.AuthenticationService;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.UsuarioService;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.dto.auth.CadastrarUsuarioDTO;
@@ -27,7 +28,7 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class OAuth2LoginSuccessHandler
-        implements AuthenticationSuccessHandler {
+        implements AuthenticationSuccessHandler, HttpHandler {
 
     final private UsuarioMapper mapper;
     private final UsuarioService usuarioService;
@@ -42,13 +43,15 @@ public class OAuth2LoginSuccessHandler
     private long refreshTokenExpirationTime;
     @Value("${spring.security.jwt.expiration-time}")
     private long accessTokenExpirationTime;
+    @Value("${spring.security.secure-cookies}")
+    private boolean isSecureCookiesActive;
 
     @Override
     public void onAuthenticationSuccess(
             HttpServletRequest request,
             HttpServletResponse response,
             Authentication authentication
-    ) throws IOException {
+    ) throws IOException{
         if (authentication instanceof OAuth2AuthenticationToken oAuth2AuthenticationToken) {
 
             OAuth2User oauth2User = oAuth2AuthenticationToken.getPrincipal();
@@ -63,31 +66,8 @@ public class OAuth2LoginSuccessHandler
 
             String redirectUrl = frontendUrl + "/oauth/callback";
 
-            long accessTokenExpirationTimeSeconds = accessTokenExpirationTime / 1000;
-            response.addHeader(
-                    HttpHeaders.SET_COOKIE,
-                    ResponseCookie
-                            .from("access_token", tokens.accessToken())
-                            .httpOnly(true)
-                            .secure(false)
-                            .sameSite("Lax")
-                            .path("/")
-                            .maxAge(accessTokenExpirationTimeSeconds)
-                            .build().toString()
-            );
-
-            long refreshTokenExpirationTimeSeconds = refreshTokenExpirationTime / 1000;
-            response.addHeader(
-                    HttpHeaders.SET_COOKIE,
-                    ResponseCookie
-                            .from("refresh_token", tokens.refreshToken())
-                            .httpOnly(true)
-                            .secure(false)
-                            .sameSite("Lax")
-                            .path("/")
-                            .maxAge(refreshTokenExpirationTimeSeconds)
-                            .build().toString()
-            );
+            setAccessTokenCookie(response, tokens.accessToken(), accessTokenExpirationTime, isSecureCookiesActive);
+            setRefreshTokenCookie(response, tokens.refreshToken(), refreshTokenExpirationTime, isSecureCookiesActive);
 
             response.sendRedirect(redirectUrl);
         } else {

@@ -1,6 +1,6 @@
 package br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.api.controller;
 
-import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.api.controller.common.GenericController;
+import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.api.controller.common.HttpHandler;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.PedidoService;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.comand.AdicionarItemPedidoCommand;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.dto.pedido.ItemAdicionadoResponseDTO;
@@ -33,7 +33,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Tag(name = "Pedidos")
 @Slf4j
-public class PedidoController implements GenericController {
+public class PedidoController implements HttpHandler {
 
     public final PedidoService service;
 

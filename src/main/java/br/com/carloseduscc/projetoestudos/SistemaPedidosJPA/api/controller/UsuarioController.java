@@ -1,6 +1,6 @@
 package br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.api.controller;
 
-import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.api.controller.common.GenericController;
+import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.api.controller.common.HttpHandler;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.UsuarioService;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.comand.AtualizarDadosUsuarioCommand;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.dto.pedido.AbrirPedidoResponseDTO;
@@ -27,7 +27,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Tag(name = "Usuários")
 @Slf4j
-public class UsuarioController implements GenericController {
+public class UsuarioController implements HttpHandler {
 
     private final UsuarioService service;
 

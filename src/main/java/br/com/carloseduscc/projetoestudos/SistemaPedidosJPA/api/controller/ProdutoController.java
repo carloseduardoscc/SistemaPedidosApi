@@ -1,6 +1,6 @@
 package br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.api.controller;
 
-import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.api.controller.common.GenericController;
+import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.api.controller.common.HttpHandler;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.ProdutoService;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.dto.produto.ProdutoDTO;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.query_filters.RequisicaoFiltroProduto;
@@ -29,7 +29,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Tag(name = "Produtos")
 @Slf4j
-public class ProdutoController implements GenericController {
+public class ProdutoController implements HttpHandler {
 
     private final ProdutoService service;
 

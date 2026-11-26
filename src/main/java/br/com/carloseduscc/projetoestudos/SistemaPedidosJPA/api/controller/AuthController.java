@@ -1,6 +1,6 @@
 package br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.api.controller;
 
-import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.api.controller.common.GenericController;
+import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.api.controller.common.HttpHandler;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.AuthenticationService;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.dto.auth.CadastrarUsuarioDTO;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.dto.auth.UsernamePasswordCredentialsDTO;
@@ -29,7 +29,7 @@ import java.net.URI;
 @RequiredArgsConstructor
 @Tag(name = "Autenticação")
 @Slf4j
-public class AuthController implements GenericController {
+public class AuthController implements HttpHandler {
 
     private final AuthenticationService service;
     @Value("${spring.security.refresh-token.expiration-time}")

@@ -11,7 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.Arrays;
 
-public interface GenericController {
+public interface HttpHandler {
 
     default URI gerarHeaderLocation (String id){
         URI uri = ServletUriComponentsBuilder

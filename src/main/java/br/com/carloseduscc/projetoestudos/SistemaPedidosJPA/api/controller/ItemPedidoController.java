@@ -1,6 +1,6 @@
 package br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.api.controller;
 
-import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.api.controller.common.GenericController;
+import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.api.controller.common.HttpHandler;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.ItemPedidoService;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.comand.AtualizarItemCommand;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.application.dto.item.ItemDetalhadoDTO;
@@ -23,7 +23,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Tag(name = "Itens")
 @Slf4j
-public class ItemPedidoController implements GenericController {
+public class ItemPedidoController implements HttpHandler {
 
     public final ItemPedidoService service;
 
