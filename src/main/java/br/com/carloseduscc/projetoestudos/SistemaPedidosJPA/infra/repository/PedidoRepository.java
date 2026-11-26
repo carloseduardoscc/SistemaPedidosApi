@@ -63,8 +63,8 @@ public interface PedidoRepository extends JpaRepository<Pedido, UUID>, JpaSpecif
     @Query("""
     SELECT DISTINCT p
     FROM Pedido p
-    JOIN FETCH p.cliente
-    JOIN FETCH p.atualizacoesDeStatus
+    LEFT JOIN FETCH p.cliente
+    LEFT JOIN FETCH p.atualizacoesDeStatus
     WHERE p.id = :id
 """)
     Optional<Pedido> buscarPedidoFetchUsuarioFetchAtualizacaoPedido(@Param("id") UUID id);

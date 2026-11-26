@@ -10,6 +10,7 @@ import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.model.ItemPedido;
 import br.com.carloseduscc.projetoestudos.SistemaPedidosJPA.model.exception.RegraDeNegocioException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -33,14 +34,24 @@ public class ItemPedidoService {
         if (linhasAfetadas == 0) throw new RegraDeNegocioException("Não é possível remover um item de um pedido que já não está mais pendente");
     }
 
+    @Transactional
     public void atualizar(AtualizarItemCommand dados, UUID id){
 
         ItemPedido itemPedido = itemRepository.buscarItemFetchPedido(id)
                 .orElseThrow(() -> getItemNaoEncontradoException(id));
 
         if (dados.quantidade() != null){
+            int quantidadeAcrescentada = dados.quantidade() - itemPedido.getQuantidade();
+            if (quantidadeAcrescentada > 0){
+                itemPedido.getPedido().validarNovoItemNoPedido(
+                        new ItemPedido(
+                                quantidadeAcrescentada,
+                                itemPedido.getProduto(),
+                                itemPedido.getPedido()
+                        )
+                );
+            }
             itemPedido.setQuantidade(dados.quantidade());
-            itemPedido.getPedido().validarNovoItemNoPedido(itemPedido);
         }
     }
 
